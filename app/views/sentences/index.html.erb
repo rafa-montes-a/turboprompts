@@ -1,0 +1,118 @@
+<div>
+  <div>
+    <h1>
+      List of all sentences
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new sentence
+    </h2>
+
+    <form action="/insert_sentence" method="post">
+      <div>
+        <label for="content_box">
+          Content
+        </label>
+
+        <textarea id="content_box" name="query_content" rows="3"></textarea>
+      </div>
+
+      <div>
+        <label for="kind_box">
+          Kind
+        </label>
+
+        <input type="text" id="kind_box" name="query_kind">
+      </div>
+
+      <div>
+        <label for="prompt_id_box">
+          Prompt
+        </label>
+
+        <input type="text" id="prompt_id_box" name="query_prompt_id">
+      </div>
+
+      <button>
+        Create sentence
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Content
+        </th>
+
+        <th>
+          Kind
+        </th>
+
+        <th>
+          Prompt
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_sentences.each do |a_sentence| %>
+      <tr>
+        <td>
+          <%= a_sentence.id %>
+        </td>
+
+        <td>
+          <%= a_sentence.content %>
+        </td>
+
+        <td>
+          <%= a_sentence.kind %>
+        </td>
+
+        <td>
+          <%= a_sentence.prompt_id %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_sentence.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_sentence.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/sentences/<%= a_sentence.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

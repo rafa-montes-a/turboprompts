@@ -1,0 +1,101 @@
+<div>
+  <div>
+    <h1>
+      Sentence #<%= @the_sentence.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/sentences">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_sentence/<%= @the_sentence.id %>">
+          Delete sentence
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Content
+      </dt>
+      <dd>
+        <%= @the_sentence.content %>
+      </dd>
+
+      <dt>
+        Kind
+      </dt>
+      <dd>
+        <%= @the_sentence.kind %>
+      </dd>
+
+      <dt>
+        Prompt
+      </dt>
+      <dd>
+        <%= @the_sentence.prompt_id %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_sentence.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_sentence.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit sentence
+    </h2>
+
+    <form action="/modify_sentence/<%= @the_sentence.id %>"  method="post" >
+      <div>
+        <label for="content_box">
+          Content
+        </label>
+
+        <textarea id="content_box" name="query_content"><%= @the_sentence.content %></textarea>
+      </div>
+
+      <div>
+        <label for="kind_box">
+          Kind
+        </label>
+
+        <input type="text" id="kind_box" name="query_kind" value="<%= @the_sentence.kind %>">
+      </div>
+
+      <div>
+        <label for="prompt_id_box">
+          Prompt
+        </label>
+
+        <input type="text" id="prompt_id_box" name="query_prompt_id" value="<%= @the_sentence.prompt_id %>">
+      </div>
+
+      <button>
+        Update sentence
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

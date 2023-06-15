@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Base Rails</title>
+    <title> Turbo Prompts </title>
     <%= csrf_meta_tags %>
+    <%= favicon_link_tag asset_path('speedometer.svg') %>
 
     <!-- Expand the number of characters we can use in the document beyond basic ASCII 🎉 -->
     <meta charset="utf-8">
@@ -13,9 +14,264 @@
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
 
+    <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Connect Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"></script>
+
+    <!-- Bootstrap Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+     <script>
+      function confirmDelete() {
+        var confirmation = confirm('Are you sure you want to delete this item?');
+        if (confirmation) {
+          // Proceed with the deletion action
+          return true;
+        } else {
+          // Cancel the deletion action and redirect to a specific URL
+           event.preventDefault();
+          event.stopPropagation();
+          return false;
+        }
+      }
+      </script>
+
+      <style>
+
+      .banner{
+        display: flex;
+        padding-left: 100px;
+        padding-right: 0px;       
+      }    
+
+      .right{
+        margin-left: auto;
+      }
+
+      .parent-button{
+        
+      }
+
+      .cancel-button{
+        
+      }
+    </style>
+
+
   </head>
 
-  <body>
+  <body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/"> <i class="bi bi-speedometer"></i> Turbo Prompts </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+          <div class="navbar-nav">        
+            <% if @current_user == nil %>
+                <div>Welcome!</div>
+            <% else %>
+              <a class="nav-link" href="/prompts"> <i class="bi bi-house-fill"></i> Home </a>
+
+            <% end %>
+          </div>
+
+          <div class="navbar-nav right">
+            <% if @current_user == nil %>        
+              <a class="nav-link" href="/user_sign_in"> <i class="bi bi-fingerprint"></i> Log in</a>
+              <a class="nav-link" href="/user_sign_up"> <i class="bi bi-plus-lg"></i> Create account</a>
+
+            <% else %>
+              <a class="nav-link" href="/edit_user_profile"> <i class="bi bi-emoji-sunglasses-fill"></i> Hi, <%= @current_user.first_name %> </a>
+
+              <% if @current_user.email == @admin_email %>
+                <a class="nav-link" href="/admin"> <i class="bi bi-wrench-adjustable-circle-fill"></i> Admin settings</a>
+              <% else %>
+              <% end %>
+
+              <a class="nav-link" href="/user_sign_out"> <i class="bi bi-power"></i> Log out</a>
+
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  <div class = "container py-3">
+
+    <!--
+    <% if notice == nil %>
+    <% else %>
+      <div class="alert alert-success d-flex justify-content-between">
+        <div class="col"><%= notice %></div>
+        <div class="col text-end"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+      </div>
+    <% end %>
+    -->
+
+    <% if alert == nil %>
+    <% else %>
+      <div class="alert alert-danger d-flex justify-content-between">
+        <div class="col"><%= alert %></div>
+        <div class="col text-end"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+      </div>
+    <% end %>
+
+    <div class="mb-3">
+      <a id="backButton" href="javascript:history.go(-1)" title="Back" class="btn btn-outline-primary btn-sm"> <i class="bi bi-arrow-left"></i> Back </a>
+    </div>
+
     <%= yield %>
+
+    <br>
+
+    <div class=" fw-light text-center">
+      Developed by Rafael Montes at Chicago Booth. All rights reserved. Suggestions: <a href=mailto:rmontes@chicagobooth.edu>rmontes@chicagobooth.edu</a>
+    </div>
+
+  </div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const copyButtons = document.querySelectorAll('.copy-button');
+      copyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const code = button.getAttribute('data-code');
+
+          // Create a temporary textarea element to hold the text
+          const textarea = document.createElement('textarea');
+          textarea.value = code;
+          document.body.appendChild(textarea);
+
+          // Copy the text from the textarea
+          textarea.select();
+          document.execCommand('copy');
+
+          // Clean up by removing the temporary textarea
+          document.body.removeChild(textarea);
+
+          // Optionally provide some visual feedback to indicate successful copying
+          button.innerHTML = '<i class="bi bi-clipboard-check-fill"></i> Copied';
+          setTimeout(() => {
+            button.innerHTML = '<i class="bi bi-clipboard-check"></i> Copy';
+          }, 2000);
+
+        });
+      });
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const copyButtons = document.querySelectorAll('.copy-button-GPT');
+      copyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const code = button.getAttribute('data-code');
+
+          // Create a temporary textarea element to hold the text
+          const textarea = document.createElement('textarea');
+          textarea.value = code;
+          document.body.appendChild(textarea);
+
+          // Copy the text from the textarea
+          textarea.select();
+          document.execCommand('copy');
+
+          // Clean up by removing the temporary textarea
+          document.body.removeChild(textarea);
+
+          // Optionally provide some visual feedback to indicate successful copying
+          button.innerHTML = '<i class="bi bi-clipboard-check-fill"></i> Copied';
+          setTimeout(() => {
+            button.innerHTML = '<i class="bi bi-clipboard-check"></i> Copy prompt and go to ChatGPT';
+          }, 2000);
+
+          // Open a new tab with the desired URL
+          const chatGPTUrl = 'https://chat.openai.com/'; // Replace with the actual URL
+          window.open(chatGPTUrl, '_blank');
+
+        });
+      });
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const copyButtons = document.querySelectorAll('.copy-button-bing');
+      copyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const code = button.getAttribute('data-code');
+
+          // Create a temporary textarea element to hold the text
+          const textarea = document.createElement('textarea');
+          textarea.value = code;
+          document.body.appendChild(textarea);
+
+          // Copy the text from the textarea
+          textarea.select();
+          document.execCommand('copy');
+
+          // Clean up by removing the temporary textarea
+          document.body.removeChild(textarea);
+
+          // Optionally provide some visual feedback to indicate successful copying
+          button.innerHTML = '<i class="bi bi-clipboard-check-fill"></i> Copied';
+          setTimeout(() => {
+            button.innerHTML = '<i class="bi bi-clipboard-check"></i> Copy prompt and go to ChatGPT 4.0 in Bing';
+          }, 2000);
+
+          // Open a new tab with the desired URL
+          const chatGPTUrl = 'https://www.bing.com/search?form=WSBCTB&toWww=1&redig=E0AC8F99A631419BAE3C1AA602BF2759&q=What+can+the+new+Bing+chat+do%3F&showconv=1&sydconv=1'; // Replace with the actual URL
+          window.open(chatGPTUrl, '_blank');
+
+        });
+      });
+    });
+  </script>
+
+
+  <script>
+    // BACK BUTTON RULES
+    function goBack() {
+      window.history.back();
+    }
+
+    window.onload = function() {
+      var backButton = document.getElementById("backButton");
+
+      // Hide the back button initially if there is no history
+      if (window.history.length <= 1) {
+        backButton.style.display = "none";
+      }
+
+      // Check if the current URL is the homepage
+      if (window.location.href === @homepage_link || window.location.href === @sign_in_link || window.location.href === "@sign_up_link")   {
+        backButton.style.display = "none";
+      }
+      
+      // Monitor the history changes
+      window.onpopstate = function() {
+        // Show or hide the back button based on the history length
+        if (window.history.length <= 1) {
+          backButton.style.display = "none";
+        } else {
+          backButton.style.display = "block";
+        }
+      };
+    };
+  </script>
+
   </body>
 </html>

@@ -1,0 +1,50 @@
+<% if @current_user.email == @admin_email %>
+  
+  <div class="card mb-3">
+    <div class="card-body">
+
+    <h5>Admin settings</h5>
+
+    <% @list_of_users.each do |a_user| %>
+
+      <div class="row">
+
+        <div class="col-auto">
+          <%= a_user.id %>
+        </div>
+        
+        <div class="col-auto">
+          <%= a_user.first_name %> <%= a_user.last_name %>
+        </div>
+
+        <div class="col-auto">
+          <%= a_user.email %>
+        </div>
+
+        <div class="col-auto">
+          Created: <%= a_user.created_at.strftime(("%B %d, %Y")) %>,
+        </div>
+
+        <div class="col-auto">
+          <%= a_user.prompts.count %> prompts, 
+        </div>
+
+        <div class="col-auto">
+          <%= a_user.questions.count %> questions asked, 
+        </div>
+
+        <div class="col-auto">
+          <%= a_user.likes.count %> likes given
+        </div>
+
+      </div>
+
+    <% end %>
+
+    </div>
+  </div>
+
+
+<% else %>
+  This site is empty
+<% end %>

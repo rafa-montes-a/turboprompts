@@ -1,0 +1,116 @@
+<div>
+  <div>
+    <h1>
+      Question #<%= @the_question.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/questions">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_question/<%= @the_question.id %>">
+          Delete question
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        User
+      </dt>
+      <dd>
+        <%= @the_question.user_id %>
+      </dd>
+
+      <dt>
+        Prompt
+      </dt>
+      <dd>
+        <%= @the_question.prompt_id %>
+      </dd>
+
+      <dt>
+        Answer
+      </dt>
+      <dd>
+        <%= @the_question.answer %>
+      </dd>
+
+      <dt>
+        Feed
+      </dt>
+      <dd>
+        <%= @the_question.feed %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_question.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_question.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit question
+    </h2>
+
+    <form action="/modify_question/<%= @the_question.id %>"  method="post" >
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_question.user_id %>">
+      </div>
+
+      <div>
+        <label for="prompt_id_box">
+          Prompt
+        </label>
+
+        <input type="text" id="prompt_id_box" name="query_prompt_id" value="<%= @the_question.prompt_id %>">
+      </div>
+
+      <div>
+        <label for="answer_box">
+          Answer
+        </label>
+
+        <textarea id="answer_box" name="query_answer"><%= @the_question.answer %></textarea>
+      </div>
+
+      <div>
+        <label for="feed_box">
+          Feed
+        </label>
+
+        <textarea id="feed_box" name="query_feed"><%= @the_question.feed %></textarea>
+      </div>
+
+      <button>
+        Update question
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

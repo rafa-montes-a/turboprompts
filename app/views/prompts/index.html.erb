@@ -1,0 +1,127 @@
+<div class="row align-items-center mb-3">
+
+  <div class="col text-right">
+    <a href="/prompts/new" title="Create new prompt template" class="btn btn-outline-success"> <i class="bi bi-plus-lg"></i> New </a>
+  </div>
+
+  <div class="col-auto text-end">
+    <div class="dropdown">
+      <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-funnel-fill"></i> Filter by
+      </a>
+
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Liked by me</a></li>
+        <li><a class="dropdown-item" href="#">Created by me</a></li>
+        <li><a class="dropdown-item" href="#">Clear filters</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-auto text-end">
+    <div class="dropdown">
+      <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-arrow-down"></i> Order by
+      </a>
+
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#"> A-Z </a></li>
+        <li><a class="dropdown-item" href="#"> Most popular </a></li>
+        <li><a class="dropdown-item" href="#"> Most recent </a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+<% @list_of_prompts.each do |a_prompt| %>
+  <div class="card mb-3">
+    <div class="card-body">
+
+      <div class="col">
+
+        <div class="col">
+          <h5> <a href="/prompts/chat/<%= a_prompt.id %>"> <%= a_prompt.desc %> </a> </h5>
+          <p><small>Created by <%= a_prompt.user.first_name %> <%= a_prompt.user.last_name %> at <%= a_prompt.created_at.strftime(("%B %d, %Y")) %> </small></p>
+        </div>
+        
+        <hr>
+
+        <div>
+
+          <form action="/insert_question" method="post">
+
+            <div class="row align-items-center">
+
+              <div class="col-md-10">
+
+                <div class="row align-items-center">
+
+                  <% a_prompt.sentences.each do |a_sentence| %>
+
+                    <% if a_sentence.kind == "Fixed" %>
+                  
+                      <div class="col-auto">
+                        <label for="sentence<%= a_sentence.id %>_box" class="form-label"> <%= a_sentence.content %> </label>
+                        <input id="sentence<%= a_sentence.id %>_box" name="query_sentence<%= a_sentence.id %>" type="hidden" class="form-control form-control-sm" value="<%= a_sentence.content %>">
+                      </div>
+                    
+                    <% else %>
+
+                      <div class="col-auto">
+                        <input id="sentence<%= a_sentence.id %>_box" name="query_sentence<%= a_sentence.id %>" type="text" class="form-control form-control-sm">
+                      </div>
+                    <% end %>
+
+                  <% end %>
+
+                  <input id="prompt_id_box" name="query_prompt_id" type="hidden" value="<%= a_prompt.id %>">
+
+                </div>
+
+              </div>
+
+              <div class="col text-end">
+                <button title="Ask Chat GPT" class="btn btn-success btn-sm"> <i class="bi bi-send-fill"></i> Ask ChatGPT </button>
+              </div>
+            
+            </div>
+
+          </form>
+
+        </div>
+
+        <hr>
+
+      </div>
+
+      <div class="col m-2 text-end">
+
+        <% if @current_user == nil %>
+          <a href="/duplicate_prompt/<%= a_prompt.id %>" title="Duplicate first to edit if you are not the owner" class="btn btn-outline-primary btn-sm"> <i class="bi bi-back"></i> Duplicate </a>
+        <% else %>
+
+          <% if a_prompt.likes.where({ :user_id => @current_user.id }).count >= 1 %>
+            <a href="/delete_like/<%= a_prompt.likes.where({ :user_id => @current_user.id }).at(0).id %>/<%= a_prompt.id %>"  title="Dislike" class="btn btn-outline-primary btn-sm"> <i class="bi bi-heart-fill"></i> <%= a_prompt.likes.count %> </a>
+          <% else %>
+            <a href="/insert_like/<%= a_prompt.id %>"  title="Like" class="btn btn-outline-primary btn-sm"> <i class="bi bi-heart"></i> <%= a_prompt.likes.count %> </a>
+          <% end %>
+        
+          <a href="/duplicate_prompt/<%= a_prompt.id %>" title="Duplicate first to edit if you are not the owner" class="btn btn-outline-primary btn-sm"> <i class="bi bi-back"></i> Duplicate </a>
+
+          <% if a_prompt.user.id == @current_user.id %>
+
+            <a href="/prompts/<%= a_prompt.id %>"  title="Edit" class="btn btn-outline-primary btn-sm"> <i class="bi bi-pencil"></i> Edit </a>
+            <a href="/delete_prompt/<%= a_prompt.id %>"  title="Delete" class="btn btn-outline-danger btn-sm cancel-button" onclick="confirmDelete(event, <%= a_prompt.id %>)"> <i class="bi bi-trash3"></i> </a>
+          <% else %>
+          <% end%>
+
+        <% end%>
+        
+      </div>
+
+    </div>
+  </div>
+<% end %>
+ 
