@@ -3,7 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.3'
 
-gem 'ruby-openai'
+gem "ruby-openai"
+gem "mailgun-ruby"
 
 gem 'bcrypt'
 gem 'bootsnap', '>= 1.4.2', require: false
@@ -23,7 +24,6 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring'
   gem 'web-console', '>= 3.3.0'
-  gem 'sqlite3', '~> 1.4.1'
 end
 
 group :development, :test do
@@ -32,7 +32,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'grade_runner', github: 'firstdraft/grade_runner'
   gem 'pry-rails'
-  
+  gem 'sqlite3', '~> 1.4.1'
   gem 'table_print'
   gem 'web_git', github: 'firstdraft/web_git'
 end
