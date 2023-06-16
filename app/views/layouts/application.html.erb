@@ -70,6 +70,9 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
+
+        <a id="backButton" href="javascript:history.go(-1)" title="Back" class="navbar-brand"> <i class="bi bi-chevron-left"></i> </a>
+  
         <a class="navbar-brand" href="/"> <i class="bi bi-speedometer"></i> Turbo Prompts </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -128,9 +131,6 @@
       </div>
     <% end %>
 
-    <div class="mb-3">
-      <a id="backButton" href="javascript:history.go(-1)" title="Back" class="btn btn-outline-primary btn-sm"> <i class="bi bi-arrow-left"></i> Back </a>
-    </div>
 
     <%= yield %>
 
