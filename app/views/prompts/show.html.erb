@@ -11,7 +11,7 @@
 
       <div class="row align-items-center mb-3">
 
-        <div class="col-md-3">
+        <div class="col-md-3 mb-2">
           <input id="desc_box" name="query_desc" type="text" class="form-control form-control-sm" value="<%= @the_prompt.desc %>"> 
         </div>
 
@@ -127,14 +127,14 @@
 
                   <% if a_sentence.kind == "Fixed" %>
                 
-                    <div class="col-auto m-1">
+                    <div class="col-auto mb-1">
                       <label for="sentence<%= a_sentence.id %>_box" class="form-label"> <%= a_sentence.content %> </label>
                       <input id="sentence<%= a_sentence.id %>_box" name="query_sentence<%= a_sentence.id %>" type="hidden" class="form-control form-control-sm" value="<%= a_sentence.content %>">
                     </div>
                   
                   <% else %>
 
-                    <div class="col-auto m-1">
+                    <div class="col-auto mb-1">
                       <input id="sentence<%= a_sentence.id %>_box" name="query_sentence<%= a_sentence.id %>" type="text" class="form-control form-control-sm" value="<%= a_sentence.content %>">
                     </div>
                   <% end %>

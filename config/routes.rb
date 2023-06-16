@@ -68,6 +68,7 @@ Rails.application.routes.draw do
           
   # READ
   get("/prompts", { :controller => "home", :action => "index" })
+
   get("/prompts/new", { :controller => "prompts", :action => "new" })
   get("/prompts/:path_id", { :controller => "prompts", :action => "show" })
   get("/prompts/chat/:path_id", { :controller => "prompts", :action => "chat" })

@@ -1,10 +1,11 @@
-<div class="row align-items-center mb-3">
+
+<div class="row text-align-center mb-3">
 
   <div class="col text-right">
-    <a href="/prompts/new" title="Create new prompt template" class="btn btn-outline-success"> <i class="bi bi-plus-lg"></i> New </a>
+    <a href="/prompts/new" title="Create new prompt template" class="btn btn-outline-success"> <i class="bi bi-plus-lg"></i> New template</a>
   </div>
 
-  <div class="col-auto text-end">
+  <div class="col text-end">
     <div class="dropdown">
       <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="bi bi-funnel-fill"></i> Filter by
@@ -18,7 +19,7 @@
     </div>
   </div>
 
-  <div class="col-auto text-end">
+  <div class="col-auto">
     <div class="dropdown">
       <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="bi bi-arrow-down"></i> Order by
@@ -62,14 +63,14 @@
 
                     <% if a_sentence.kind == "Fixed" %>
                   
-                      <div class="col-auto">
+                      <div class="col-auto mb-1">
                         <label for="sentence<%= a_sentence.id %>_box" class="form-label"> <%= a_sentence.content %> </label>
                         <input id="sentence<%= a_sentence.id %>_box" name="query_sentence<%= a_sentence.id %>" type="hidden" class="form-control form-control-sm" value="<%= a_sentence.content %>">
                       </div>
                     
                     <% else %>
 
-                      <div class="col-auto">
+                      <div class="col-auto mb-1">
                         <input id="sentence<%= a_sentence.id %>_box" name="query_sentence<%= a_sentence.id %>" type="text" class="form-control form-control-sm">
                       </div>
                     <% end %>

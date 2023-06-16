@@ -244,34 +244,41 @@
 
   <script>
     // BACK BUTTON RULES
-    function goBack() {
-      window.history.back();
-    }
-
     window.onload = function() {
       var backButton = document.getElementById("backButton");
 
-      // Hide the back button initially if there is no history
-      if (window.history.length <= 1) {
+      // Hide the back button initially if there is no history or if on homepage
+      if (window.history.length <= 1 || isHomePage()) {
         backButton.style.display = "none";
       }
 
-      // Check if the current URL is the homepage
-      if (window.location.href === @homepage_link || window.location.href === @sign_in_link || window.location.href === "@sign_up_link")   {
-        backButton.style.display = "none";
-      }
-      
       // Monitor the history changes
       window.onpopstate = function() {
-        // Show or hide the back button based on the history length
-        if (window.history.length <= 1) {
+        // Show or hide the back button based on the history length or if on homepage
+        if (window.history.length <= 1 || isHomePage()) {
           backButton.style.display = "none";
         } else {
           backButton.style.display = "block";
         }
       };
+
+      function isHomePage() {
+        // Modify the condition to match your homepage URL or conditions
+        if (window.location.href ===  "https://3000-rafamontesa-turboprompt-0tfefh9d4qe.ws-us100.gitpod.io/prompts" || window.location.href ===  "https://3000-rafamontesa-turboprompt-0tfefh9d4qe.ws-us100.gitpod.io/" || window.location.href ==="https://3000-rafamontesa-turboprompt-0tfefh9d4qe.ws-us100.gitpod.io/user_sign_in"  || window.location.href ==="https://3000-rafamontesa-turboprompt-0tfefh9d4qe.ws-us100.gitpod.io/user_sign_up" || window.location.href ==="https://3000-rafamontesa-turboprompt-0tfefh9d4qe.ws-us100.gitpod.io/#") {
+          return true;
+        }
+        return false;
+      }
     };
-  </script>
+  </script> 
+
+
+<script>
+      // Check if the current URL is the homepage
+     // if (window.location.href === "https://3000-rafamontesa-turboprompt-0tfefh9d4qe.ws-us100.gitpod.io/prompts" || window.location.href === @sign_in_link || window.location.href === @sign_up_link)   {
+    //    backButton.style.display = "none";
+    //  }
+</script>
 
   </body>
 </html>
