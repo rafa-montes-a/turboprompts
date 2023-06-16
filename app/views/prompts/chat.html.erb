@@ -87,7 +87,7 @@
   </div>
 </div>
 
-<% if @the_prompt.questions.count == 0 %>
+<% if @the_prompt.questions.where({ :user_id => @current_user.id }).count == 0 %>
 You don't have questions in this template yet.
 <% else %>
 <% end %>
