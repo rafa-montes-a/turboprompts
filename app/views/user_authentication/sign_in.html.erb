@@ -1,23 +1,43 @@
-<h1>Sign in</h1>
 
-<form action="/user_verify_credentials" method="post">
-  <div>
-    <label for="email_box">Email</label>
-    <input id="email_box" name="query_email" placeholder="Enter your email..." type="text">
+<div class="container py-5">
+  <div class="row text-align-center justify-content-evenly d-flex align-items-center">
+
+    <div class="col-auto mb-5">
+      <h1 class="display-3"> <i class="bi bi-speedometer"></i> Turbo Prompts </h1>
+      <h1 class="lead"> </i> Create personalized templates for Chat GPT prompts. </h1>
+    </div>
+
+    <div class="col-md-4 text-center">
+
+      <div class="card mb-3">
+        <div class="card-body">
+
+          <form action="/user_verify_credentials" method="post">
+
+              <div class="col-auto mb-3">
+                <input id="email_box" name="query_email" type="text" class="form-control py-2" placeholder="Email"> 
+              </div>
+
+              <div class="col-auto mb-3">
+                <input id="password_box" name="query_password" type="password" class="form-control py-2" placeholder="Password"> 
+              </div>
+
+              <div class="col-auto">
+                <button title="Log in" class="btn btn-primary"> <i class="bi bi-fingerprint"></i> Log in </button>
+              </div>
+
+          </form>
+
+          <hr>
+
+          <a href="/user_sign_up" title="Create account" class="btn btn-success"> <i class="bi bi-plus-lg"></i> Create account </a>
+
+        </div>
+      </div>
+    
+    </div>
+
   </div>
-
-  <div>
-    <label for="password_box">Password</label>
-    <input id="password_box" name="query_password" placeholder="Enter your password..." type="password">
-  </div>
-
-  <button>
-    Sign in
-  </button>
-</form>
+</div>
 
 <hr>
-
-<p>
-  Or, <a href="/user_sign_up">Sign up</a> instead.
-</p>

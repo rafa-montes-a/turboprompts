@@ -79,7 +79,7 @@ class UserAuthenticationController < ForceController
 
       redirect_to("/", { :notice => "User account updated successfully."})
     else
-      render({ :template => "user_authentication/edit_profile_with_errors.html.erb" , :alert => @user.errors.full_messages.to_sentence })
+      redirect_to("/edit_user_profile" , { :alert => @user.errors.full_messages.to_sentence })
     end
   end
 
