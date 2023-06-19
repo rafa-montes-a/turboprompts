@@ -141,6 +141,7 @@
     <div class=" fw-light text-center">
       Developed by Rafael Montes at Chicago Booth. All rights reserved. Suggestions: <a href=mailto:rmontes@chicagobooth.edu>rmontes@chicagobooth.edu</a>
     </div>
+    <br>
 
   </div>
 
@@ -197,7 +198,7 @@
           // Optionally provide some visual feedback to indicate successful copying
           button.innerHTML = '<i class="bi bi-clipboard-check-fill"></i> Copied';
           setTimeout(() => {
-            button.innerHTML = '<i class="bi bi-clipboard-check"></i> Copy prompt and go to ChatGPT';
+            button.innerHTML = '<i class="bi bi-arrow-right"></i> ChatGPT';
           }, 2000);
 
           // Open a new tab with the desired URL
@@ -231,7 +232,7 @@
           // Optionally provide some visual feedback to indicate successful copying
           button.innerHTML = '<i class="bi bi-clipboard-check-fill"></i> Copied';
           setTimeout(() => {
-            button.innerHTML = '<i class="bi bi-clipboard-check"></i> Copy prompt and go to ChatGPT 4.0 in Bing';
+            button.innerHTML = '<i class="bi bi-arrow-right"></i> Bing';
           }, 2000);
 
           // Open a new tab with the desired URL
@@ -273,14 +274,6 @@
       }
     };
   </script> 
-
-
-<script>
-      // Check if the current URL is the homepage
-     // if (window.location.href === "https://3000-rafamontesa-turboprompt-0tfefh9d4qe.ws-us100.gitpod.io/prompts" || window.location.href === @sign_in_link || window.location.href === @sign_up_link)   {
-    //    backButton.style.display = "none";
-    //  }
-</script>
 
   </body>
 </html>

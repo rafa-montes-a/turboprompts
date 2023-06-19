@@ -93,23 +93,27 @@ You don't have questions in this template yet.
 <% end %>
 
 
-
       <% @the_prompt.questions.where({ :user_id => @current_user.id }).order({ :created_at => :desc }).each do |a_question| %>
 
         <div class="card mb-4" style="width: 90%;">
-          <div class="card-body bg-dark-subtle">
-
-            <div class="row">
-              <div class="col-md-9">
+          <div class="card-body">
+            
+              <div class="col">
                 <i class="bi bi-chat-dots-fill" style="color: cornflowerblue;"></i> <%= a_question.feed %>
                 <br>
                 <small class="text-muted"> <%= time_ago_in_words(a_question.created_at).capitalize %> ago </small>
               </div>
 
-              <div class="col text-end m-2">
-                <button class="btn btn-outline-primary btn-sm copy-button" data-code="<%= a_question.feed %>"> <i class="bi bi-clipboard-check"></i> Copy </button>
-                <a href="/delete_question/<%= a_question.id %>" title="Delete question" class="btn btn-outline-danger btn-sm cancel-button" onclick="confirmDelete(event, <%= a_question.id %>)"> <i class="bi bi-trash3"></i> </a>
-              </div>
+              <div class="col mt-2 mb-1">
+                
+                  <a class="btn btn-outline-secondary btn-sm mb-1 copy-button" title="Copy to clipboard" data-code="<%= a_question.feed %>"> <i class="bi bi-clipboard-check"></i> Copy </a>
+                 
+                    <a class="btn btn-outline-success btn-sm mb-1 copy-button-GPT" title="Copy to clipboard and go to ChatGPT" data-code="<%= a_question.feed %>"> <i class="bi bi-arrow-right"></i> ChatGPT </a>
+                 
+                    <a class="btn btn-outline-primary btn-sm mb-1 copy-button-bing" title="Copy to clipboard and go to Bing" data-code="<%= a_question.feed %>"> <i class="bi bi-arrow-right"></i> Bing </a>
+
+                    <a href="/delete_question/<%= a_question.id %>" title="Delete" class="btn btn-outline-danger btn-sm mb-1 cancel-button" onclick="confirmDelete(event, <%= a_question.id %>)"> <i class="bi bi-trash3"></i> </a>
+
             </div>
 
           </div>
@@ -121,16 +125,9 @@ You don't have questions in this template yet.
 
                 <p> 
                   <i class="bi bi-chat-right-text-fill" style="color: green;"></i> <strong> Short answer: </strong> <%= a_question.answer %>
-                  <a href="/modify_question/<%= a_question.id %>" title="Regenerate Chat ChatGPT answer" class="btn btn-outline-success btn-sm"> <i class="bi bi-arrow-repeat"></i> </a> Regenerate
+                  Regenerate
+                  <a href="/modify_question/<%= a_question.id %>" title="Regenerate answer with ChatGPT" class="btn btn-outline-success btn-sm"> <i class="bi bi-arrow-repeat"></i> </a> 
                 </p>
-
-                <div class="col-auto m-1">
-                  <button class="btn btn-outline-success btn-sm copy-button-GPT" data-code="<%= a_question.feed %>"> <i class="bi bi-clipboard-check"></i> Copy prompt and go to ChatGPT </button>
-                </div>
-
-                <div class="col-auto m-1">
-                  <button class="btn btn-outline-primary btn-sm copy-button-bing" data-code="<%= a_question.feed %>"> <i class="bi bi-clipboard-check"></i> Copy prompt and go to ChatGPT 4.0 in Bing </button>
-                </div>
 
               </div>
 

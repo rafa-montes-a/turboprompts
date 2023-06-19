@@ -11,12 +11,12 @@
 
       <div class="row align-items-center mb-3">
 
-        <div class="col-md-3 mb-2">
+        <div class="col-auto mb-1">
           <input id="desc_box" name="query_desc" type="text" class="form-control form-control-sm" value="<%= @the_prompt.desc %>"> 
         </div>
 
-        <div class="col-auto">
-          <button title="Save" class="btn btn-outline-primary btn-sm"> <i class="bi bi-check-lg"></i> Save changes </button>
+        <div class="col-auto mb-1">
+          <button title="Save" class="btn btn-outline-primary btn-sm"> <i class="bi bi-check-lg"></i> Save </button>
         </div>
 
       </div>
@@ -25,7 +25,7 @@
     <hr>
 
     <h5>Step 2: Write the sentences of your prompt</h5>
-    <small> <strong> Fixed </strong> sentences will show automatically in the prompt, while <strong> Input </strong> sentences will be pasted by the user.</small>
+    <small> <strong> Fixed </strong> sentences will show automatically in the prompt, while <strong> Input </strong> sentences will be pasted by the user each time.</small>
 
     <br><br>
 
@@ -35,11 +35,11 @@
           
             <div class="row align-items-center mb-1">
               
-              <div class="col-auto">
-                <input id="content_box" name="query_content" type="text" class="form-control form-control-sm" value="<%= a_sentence.content %>"> 
+              <div class="col-auto mb-1">
+                <input id="content_box" name="query_content" type="text" class="form-control-sm" value="<%= a_sentence.content %>"> 
               </div>
 
-              <div class="col-auto">
+              <div class="col-auto mb-1">
                 <select id="kind_box" name="query_kind" class="form-select form-select-sm" aria-label="Default select example">
                   <% @kind.each do |a_kind| %>
                     <option <%= 'selected' if a_kind == a_sentence.kind %> > <%= a_kind %> </option>
@@ -49,11 +49,11 @@
 
               <input id="prompt_id_box" name="query_prompt_id" type="hidden" value="<%= @the_prompt.id %>">
 
-              <div class="col-auto">
-                <button title="Save" class="btn btn-outline-primary btn-sm"> <i class="bi bi-check-lg"></i> Save changes </button>
+              <div class="col-auto mb-1">
+                <button title="Save" class="btn btn-outline-primary btn-sm"> <i class="bi bi-check-lg"></i> Save </button>
               </div>
 
-              <div class="col-auto">
+              <div class="col-auto mb-1">
                 <a href="/delete_sentence/<%= a_sentence.id %>/<%= @the_prompt.id %>" title="Delete sentence" class="btn btn-outline-danger btn-sm cancel-button" onclick="confirmDelete(event, <%= a_sentence.id %>)"> <i class="bi bi-trash3"></i>  </a>
               </div>
 
@@ -70,11 +70,11 @@
 
           <div class="row align-items-center mb-1">
 
-            <div class="col-auto">
+            <div class="col-auto mb-1">
               <input id="content_box" name="query_content" type="text" class="form-control form-control-sm"> 
             </div>
 
-            <div class="col-auto">
+            <div class="col-auto mb-1">
               <select id="kind_box" name="query_kind" class="form-select form-select-sm" aria-label="Default select example">
                 <% @kind.each do |a_kind| %>
                   <option <%= 'selected' if a_kind == "Fixed" %> > <%= a_kind %> </option>
@@ -84,8 +84,8 @@
 
             <input id="prompt_id_box" name="query_prompt_id" type="hidden" value="<%= @the_prompt.id %>"> 
 
-            <div class="col-auto">
-              <button title="Create new sentence" class="btn btn-outline-success btn-sm"> <i class="bi bi-plus-lg"></i> Create new sentence</a>
+            <div class="col-auto mb-1">
+              <button title="Create new sentence" class="btn btn-outline-success btn-sm"> <i class="bi bi-plus-lg"></i> New</a>
             </div>
 
           </div>
