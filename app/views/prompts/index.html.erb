@@ -42,9 +42,17 @@
 
       <div class="col">
 
-        <div class="col">
-          <h5> <a href="/prompts/chat/<%= a_prompt.id %>"> <%= a_prompt.desc %> </a> </h5>
-          <p><small>Created by <%= a_prompt.user.first_name %> <%= a_prompt.user.last_name %> at <%= a_prompt.created_at.strftime(("%B %d, %Y")) %> </small></p>
+          <div class="row text-align-center ">
+
+          <div class="col-auto">
+            <img class="thumbnail" src="https://robohash.org/<%= a_prompt.id %>">
+          </div>
+
+          <div class="col-auto text-truncate">
+            <h5> <a href="/prompts/chat/<%= a_prompt.id %>"> <%= a_prompt.desc %> </a> </h5>
+            <p><small>Created by <%= a_prompt.user.first_name %> <%= a_prompt.user.last_name %> at <%= a_prompt.created_at.strftime(("%B %d, %Y")) %> </small></p>
+          </div>
+
         </div>
         
         <hr>
@@ -55,7 +63,7 @@
 
             <div class="row align-items-center">
 
-              <div class="col-md-10">
+              <div class="col-auto">
 
                 <div class="row align-items-center">
 
