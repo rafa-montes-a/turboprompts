@@ -3,7 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.3'
 
-gem 'sqlite3', '~> 1.4.1'
 gem 'ruby-openai'
 
 gem 'bcrypt'
