@@ -423,7 +423,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   sprockets (< 4)
-  sqlite3 (~> 1.4.1)
+  sqlite3
   table_print
   web-console (>= 3.3.0)
   web_git!

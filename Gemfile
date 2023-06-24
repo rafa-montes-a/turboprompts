@@ -31,7 +31,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'grade_runner', github: 'firstdraft/grade_runner'
   gem 'pry-rails'
-  gem 'sqlite3', '~> 1.4.1' 
+  gem 'sqlite3'
   gem 'table_print'
   gem 'web_git', github: 'firstdraft/web_git'
 end
