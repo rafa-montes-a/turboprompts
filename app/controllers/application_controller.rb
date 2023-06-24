@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def define_admin
-    @admin_email = "rafa@automator.com"
+    @admin_email = "rmontes@chicagobooth.edu"
   end
 
   def define_locations
