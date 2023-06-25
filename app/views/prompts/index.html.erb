@@ -1,4 +1,5 @@
 
+
 <div class="row text-align-center mb-3">
 
   <div class="col text-right mb-1">
@@ -67,23 +68,27 @@
 
                 <div class="row align-items-center">
 
+                <p class="text-wrap">
+
                   <% a_prompt.sentences.each do |a_sentence| %>
 
                     <% if a_sentence.kind == "Fixed" %>
                   
-                      <div class="col-auto mb-1">
+                      <div class="col-auto mb-1 text-wrap">
                         <label for="sentence<%= a_sentence.id %>_box" class="form-label "> <%= a_sentence.content %> </label>
-                        <input id="sentence<%= a_sentence.id %>_box" name="query_sentence<%= a_sentence.id %>" type="hidden" class="form-control form-control-sm" value="<%= a_sentence.content %>">
+                        <input id="sentence<%= a_sentence.id %>_box" name="query_sentence<%= a_sentence.id %>" type="hidden" class="form-control form-control-sm text-wrap" value="<%= a_sentence.content %>">
                       </div>
                     
                     <% else %>
 
-                      <div class="col-auto mb-1">
+                      <div class="col-auto mb-1 text-wrap">
                         <input id="sentence<%= a_sentence.id %>_box" name="query_sentence<%= a_sentence.id %>" type="text" class="form-control form-control-sm">
                       </div>
                     <% end %>
 
                   <% end %>
+
+                  </p>
 
                   <input id="prompt_id_box" name="query_prompt_id" type="hidden" value="<%= a_prompt.id %>">
 

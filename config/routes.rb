@@ -9,9 +9,9 @@ Rails.application.routes.draw do
   get("/insert_like/:prompt_id", { :controller => "likes", :action => "create" })
           
   # READ
-  get("/likes", { :controller => "likes", :action => "index" })
+  #get("/likes", { :controller => "likes", :action => "index" })
   
-  get("/likes/:path_id", { :controller => "likes", :action => "show" })
+  #get("/likes/:path_id", { :controller => "likes", :action => "show" })
   
   # UPDATE
   
@@ -29,7 +29,6 @@ Rails.application.routes.draw do
           
   # READ
   get("/questions", { :controller => "questions", :action => "index" })
-  
   get("/questions/:path_id", { :controller => "questions", :action => "show" })
   
   # UPDATE
@@ -47,9 +46,9 @@ Rails.application.routes.draw do
   post("/insert_sentence", { :controller => "sentences", :action => "create" })
           
   # READ
-  get("/sentences", { :controller => "sentences", :action => "index" })
+  #get("/sentences", { :controller => "sentences", :action => "index" })
   
-  get("/sentences/:path_id", { :controller => "sentences", :action => "show" })
+  #get("/sentences/:path_id", { :controller => "sentences", :action => "show" })
   
   # UPDATE
   

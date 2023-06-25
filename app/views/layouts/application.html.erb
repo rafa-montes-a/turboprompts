@@ -105,7 +105,7 @@
             <% else %>
               <a class="nav-link" href="/edit_user_profile"> <i class="bi bi-emoji-sunglasses-fill"></i> Hi, <%= @current_user.first_name %> </a>
 
-              <% if @current_user.email == @admin_email %>
+              <% if @current_user.id == 1 %>
                 <a class="nav-link" href="/admin"> <i class="bi bi-wrench-adjustable-circle-fill"></i> Admin settings</a>
               <% else %>
               <% end %>

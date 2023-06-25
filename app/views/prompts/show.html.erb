@@ -1,190 +1,197 @@
-<h6> Build your template: </h6>
+<% if @current_user.id == @the_prompt.user_id %>
 
-<div class="card">
-  <div class="card-body">
+  <h6> Build your template: </h6>
 
-    <form action="/modify_prompt/<%= @the_prompt.id %>" method="post">
+  <div class="card">
+    <div class="card-body">
 
-      <div class="col-auto">
-          <label for="desc_box" class="form-label"> <h5>Step 1: Define a name to describe your prompt:</h5></label>
-      </div>
+      <form action="/modify_prompt/<%= @the_prompt.id %>" method="post">
 
-      <div class="row align-items-center mb-3">
-
-        <div class="col-auto mb-1">
-          <input id="desc_box" name="query_desc" type="text" class="form-control form-control-sm" value="<%= @the_prompt.desc %>"> 
+        <div class="col-auto">
+            <label for="desc_box" class="form-label"> <h5>Step 1: Define a name to describe your prompt:</h5></label>
         </div>
 
-        <div class="col-auto mb-1">
-          <button title="Save" class="btn btn-outline-primary btn-sm"> <i class="bi bi-check-lg"></i> Save </button>
+        <div class="row align-items-center mb-3">
+
+          <div class="col-auto mb-1">
+            <input id="desc_box" name="query_desc" type="text" class="form-control form-control-sm" value="<%= @the_prompt.desc %>"> 
+          </div>
+
+          <div class="col-auto mb-1">
+            <button title="Save" class="btn btn-outline-primary btn-sm"> <i class="bi bi-check-lg"></i> Save </button>
+          </div>
+
         </div>
+      </form>
 
-      </div>
-    </form>
+      <hr>
 
-    <hr>
+      <h5>Step 2: Write the sentences of your prompt</h5>
+      <small> <strong> Fixed </strong> sentences will show automatically in the prompt, while <strong> Input </strong> sentences will be pasted by the user each time.</small>
 
-    <h5>Step 2: Write the sentences of your prompt</h5>
-    <small> <strong> Fixed </strong> sentences will show automatically in the prompt, while <strong> Input </strong> sentences will be pasted by the user each time.</small>
+      <br><br>
 
-    <br><br>
+          <% @the_prompt.sentences.each do |a_sentence| %>
 
-        <% @the_prompt.sentences.each do |a_sentence| %>
+            <form action="/modify_sentence/<%= a_sentence.id %>" method="post">
+            
+              <div class="row align-items-center mb-1">
+                
+                <div class="col-auto mb-1">
+                  <input id="content_box" name="query_content" type="text" class="form-control-sm" value="<%= a_sentence.content %>"> 
+                </div>
 
-          <form action="/modify_sentence/<%= a_sentence.id %>" method="post">
-          
+                <div class="col-auto mb-1">
+                  <select id="kind_box" name="query_kind" class="form-select form-select-sm" aria-label="Default select example">
+                    <% @kind.each do |a_kind| %>
+                      <option <%= 'selected' if a_kind == a_sentence.kind %> > <%= a_kind %> </option>
+                    <% end %>
+                  </select>
+                </div>
+
+                <input id="prompt_id_box" name="query_prompt_id" type="hidden" value="<%= @the_prompt.id %>">
+
+                <div class="col-auto mb-1">
+                  <button title="Save" class="btn btn-outline-primary btn-sm"> <i class="bi bi-check-lg"></i> Save </button>
+                </div>
+
+                <div class="col-auto mb-1">
+                  <a href="/delete_sentence/<%= a_sentence.id %>/<%= @the_prompt.id %>" title="Delete sentence" class="btn btn-outline-danger btn-sm cancel-button" onclick="confirmDelete(event, <%= a_sentence.id %>)"> <i class="bi bi-trash3"></i>  </a>
+                </div>
+
+              </div>
+
+            </form>
+
+          <% end %>
+
+          <br>
+
+
+          <form action="/insert_sentence/" method="post">
+
             <div class="row align-items-center mb-1">
-              
+
               <div class="col-auto mb-1">
-                <input id="content_box" name="query_content" type="text" class="form-control-sm" value="<%= a_sentence.content %>"> 
+                <input id="content_box" name="query_content" type="text" class="form-control form-control-sm"> 
               </div>
 
               <div class="col-auto mb-1">
                 <select id="kind_box" name="query_kind" class="form-select form-select-sm" aria-label="Default select example">
                   <% @kind.each do |a_kind| %>
-                    <option <%= 'selected' if a_kind == a_sentence.kind %> > <%= a_kind %> </option>
+                    <option <%= 'selected' if a_kind == "Fixed" %> > <%= a_kind %> </option>
                   <% end %>
                 </select>
               </div>
 
-              <input id="prompt_id_box" name="query_prompt_id" type="hidden" value="<%= @the_prompt.id %>">
+              <input id="prompt_id_box" name="query_prompt_id" type="hidden" value="<%= @the_prompt.id %>"> 
 
               <div class="col-auto mb-1">
-                <button title="Save" class="btn btn-outline-primary btn-sm"> <i class="bi bi-check-lg"></i> Save </button>
-              </div>
-
-              <div class="col-auto mb-1">
-                <a href="/delete_sentence/<%= a_sentence.id %>/<%= @the_prompt.id %>" title="Delete sentence" class="btn btn-outline-danger btn-sm cancel-button" onclick="confirmDelete(event, <%= a_sentence.id %>)"> <i class="bi bi-trash3"></i>  </a>
+                <button title="Create new sentence" class="btn btn-outline-success btn-sm"> <i class="bi bi-plus-lg"></i> New</a>
               </div>
 
             </div>
 
-          </form>
+            </form>
 
-        <% end %>
-
-        <br>
-
-
-        <form action="/insert_sentence/" method="post">
-
-          <div class="row align-items-center mb-1">
-
-            <div class="col-auto mb-1">
-              <input id="content_box" name="query_content" type="text" class="form-control form-control-sm"> 
-            </div>
-
-            <div class="col-auto mb-1">
-              <select id="kind_box" name="query_kind" class="form-select form-select-sm" aria-label="Default select example">
-                <% @kind.each do |a_kind| %>
-                  <option <%= 'selected' if a_kind == "Fixed" %> > <%= a_kind %> </option>
-                <% end %>
-              </select>
-            </div>
-
-            <input id="prompt_id_box" name="query_prompt_id" type="hidden" value="<%= @the_prompt.id %>"> 
-
-            <div class="col-auto mb-1">
-              <button title="Create new sentence" class="btn btn-outline-success btn-sm"> <i class="bi bi-plus-lg"></i> New</a>
-            </div>
-
-          </div>
-
-          </form>
-
-     
-
-  </div>
-</div>
-
-<br>
-
-<h6> Preview: </h6>
-
-<div class="card">
-  <div class="card-body">
-
-    <div class="col">
       
+
+    </div>
+  </div>
+
+  <br>
+
+  <h6> Preview: </h6>
+
+  <div class="card">
+    <div class="card-body">
+
       <div class="col">
-        <h5><a href="/prompts/chat/<%= @the_prompt.id %>"> <%= @the_prompt.desc %><a> </h5> 
-        <p><small>Created by <%= @the_prompt.user.first_name %> <%= @the_prompt.user.last_name %> at <%= @the_prompt.created_at.strftime(("%B %d, %Y")) %> </small></p>
-      </div>
+        
+        <div class="col">
+          <h5><a href="/prompts/chat/<%= @the_prompt.id %>"> <%= @the_prompt.desc %><a> </h5> 
+          <p><small>Created by <%= @the_prompt.user.first_name %> <%= @the_prompt.user.last_name %> at <%= @the_prompt.created_at.strftime(("%B %d, %Y")) %> </small></p>
+        </div>
 
-      <hr>
+        <hr>
 
-      <div >
-            
-        <form action="/insert_question" method="post">
+        <div >
+              
+          <form action="/insert_question" method="post">
 
-          <div class="row align-items-center">
+            <div class="row align-items-center">
 
-            <div class="col-md-10">
+              <div class="col-md-10">
 
-              <div class="row align-items-center">
+                <div class="row align-items-center">
 
-                <% @the_prompt.sentences.each do |a_sentence| %>
+                  <% @the_prompt.sentences.each do |a_sentence| %>
 
-                  <% if a_sentence.kind == "Fixed" %>
-                
-                    <div class="col-auto mb-1">
-                      <label for="sentence<%= a_sentence.id %>_box" class="form-label"> <%= a_sentence.content %> </label>
-                      <input id="sentence<%= a_sentence.id %>_box" name="query_sentence<%= a_sentence.id %>" type="hidden" class="form-control form-control-sm" value="<%= a_sentence.content %>">
-                    </div>
+                    <% if a_sentence.kind == "Fixed" %>
                   
-                  <% else %>
+                      <div class="col-auto mb-1">
+                        <label for="sentence<%= a_sentence.id %>_box" class="form-label"> <%= a_sentence.content %> </label>
+                        <input id="sentence<%= a_sentence.id %>_box" name="query_sentence<%= a_sentence.id %>" type="hidden" class="form-control form-control-sm" value="<%= a_sentence.content %>">
+                      </div>
+                    
+                    <% else %>
 
-                    <div class="col-auto mb-1">
-                      <input id="sentence<%= a_sentence.id %>_box" name="query_sentence<%= a_sentence.id %>" type="text" class="form-control form-control-sm" value="<%= a_sentence.content %>">
-                    </div>
+                      <div class="col-auto mb-1">
+                        <input id="sentence<%= a_sentence.id %>_box" name="query_sentence<%= a_sentence.id %>" type="text" class="form-control form-control-sm" value="<%= a_sentence.content %>">
+                      </div>
+                    <% end %>
+
                   <% end %>
 
-                <% end %>
+                  <input id="prompt_id_box" name="query_prompt_id" type="hidden" value="<%= @the_prompt.id %>">
 
-                <input id="prompt_id_box" name="query_prompt_id" type="hidden" value="<%= @the_prompt.id %>">
+                </div>
 
+              </div>
+
+              <div class="col text-end">
+                <button title="Ask Chat GPT" class="btn btn-success btn-sm"> <i class="bi bi-send-fill"></i> Ask ChatGPT </button>
               </div>
 
             </div>
 
-            <div class="col text-end">
-              <button title="Ask Chat GPT" class="btn btn-success btn-sm"> <i class="bi bi-send-fill"></i> Ask ChatGPT </button>
-            </div>
+          </form>
 
-          </div>
+        </div>
 
-        </form>
+        <hr>
 
       </div>
 
-      <hr>
+      <div class="col m-2 text-end">
 
-    </div>
-
-    <div class="col m-2 text-end">
-
-      <% if @current_user == nil %>
-        <a href="/duplicate_prompt/<%= @the_prompt.id %>" title="Duplicate first to edit if you are not the owner" class="btn btn-outline-primary btn-sm"> <i class="bi bi-back"></i> Duplicate </a>
-      <% else %>
-
-        <% if @the_prompt.likes.where({ :user_id => @current_user.id }).count >= 1 %>
-          <a href="/delete_like/<%= @the_prompt.likes.where({ :user_id => @current_user.id }).at(0).id %>/<%= @the_prompt.id %>"  title="Dislike" class="btn btn-outline-primary btn-sm"> <i class="bi bi-heart-fill"></i> <%= @the_prompt.likes.count %> </a>
+        <% if @current_user == nil %>
+          <a href="/duplicate_prompt/<%= @the_prompt.id %>" title="Duplicate first to edit if you are not the owner" class="btn btn-outline-primary btn-sm"> <i class="bi bi-back"></i> Duplicate </a>
         <% else %>
-          <a href="/insert_like/<%= @the_prompt.id %>"  title="Like" class="btn btn-outline-primary btn-sm"> <i class="bi bi-heart"></i> <%= @the_prompt.likes.count %> </a>
-        <% end %>
-      
-        <a href="/duplicate_prompt/<%= @the_prompt.id %>" title="Duplicate first to edit if you are not the owner" class="btn btn-outline-primary btn-sm"> <i class="bi bi-back"></i> Duplicate </a>
 
-        <% if @the_prompt.user.id == @current_user.id %>
+          <% if @the_prompt.likes.where({ :user_id => @current_user.id }).count >= 1 %>
+            <a href="/delete_like/<%= @the_prompt.likes.where({ :user_id => @current_user.id }).at(0).id %>/<%= @the_prompt.id %>"  title="Dislike" class="btn btn-outline-primary btn-sm"> <i class="bi bi-heart-fill"></i> <%= @the_prompt.likes.count %> </a>
+          <% else %>
+            <a href="/insert_like/<%= @the_prompt.id %>"  title="Like" class="btn btn-outline-primary btn-sm"> <i class="bi bi-heart"></i> <%= @the_prompt.likes.count %> </a>
+          <% end %>
+        
+          <a href="/duplicate_prompt/<%= @the_prompt.id %>" title="Duplicate first to edit if you are not the owner" class="btn btn-outline-primary btn-sm"> <i class="bi bi-back"></i> Duplicate </a>
 
-          <a href="/prompts/<%= @the_prompt.id %>"  title="Edit" class="btn btn-outline-primary btn-sm"> <i class="bi bi-pencil"></i> Edit </a>
-          <a href="/delete_prompt/<%= @the_prompt.id %>"  title="Delete" class="btn btn-outline-danger btn-sm cancel-button" onclick="confirmDelete(event, <%= @the_prompt.id %>)"> <i class="bi bi-trash3"></i> </a>
-        <% else %>
+          <% if @the_prompt.user.id == @current_user.id %>
+
+            <a href="/prompts/<%= @the_prompt.id %>"  title="Edit" class="btn btn-outline-primary btn-sm"> <i class="bi bi-pencil"></i> Edit </a>
+            <a href="/delete_prompt/<%= @the_prompt.id %>"  title="Delete" class="btn btn-outline-danger btn-sm cancel-button" onclick="confirmDelete(event, <%= @the_prompt.id %>)"> <i class="bi bi-trash3"></i> </a>
+          <% else %>
+          <% end%>
+
         <% end%>
+        
+      </div>
 
-      <% end%>
-      
     </div>
-
   </div>
-</div>
+
+<% else %>
+  <p class="text-center">What yu doin'?</p>
+  <img src="https://i.ibb.co/TrbgfGr/what.jpg"></img><br>
+<% end %>
