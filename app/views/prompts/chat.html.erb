@@ -107,10 +107,6 @@ You don't have questions in this template yet.
               <div class="col mt-2 mb-1">
                 
                   <a class="btn btn-outline-secondary btn-sm mb-1 copy-button" title="Copy to clipboard" data-code="<%= a_question.feed %>"> <i class="bi bi-clipboard-check"></i> Copy </a>
-                 
-                    <a class="btn btn-outline-success btn-sm mb-1 copy-button-GPT" title="Copy to clipboard and go to ChatGPT" data-code="<%= a_question.feed %>"> <i class="bi bi-arrow-right"></i> ChatGPT </a>
-                 
-                    <a class="btn btn-outline-primary btn-sm mb-1 copy-button-bing" title="Copy to clipboard and go to Bing" data-code="<%= a_question.feed %>"> <i class="bi bi-arrow-right"></i> Bing </a>
 
                     <a href="/delete_question/<%= a_question.id %>" title="Delete" class="btn btn-outline-danger btn-sm mb-1 cancel-button" onclick="confirmDelete(event, <%= a_question.id %>)"> <i class="bi bi-trash3"></i> </a>
 
@@ -125,8 +121,12 @@ You don't have questions in this template yet.
 
                 <p> 
                   <i class="bi bi-chat-right-text-fill" style="color: green;"></i> <strong> Short answer: </strong> <%= a_question.answer %>
-                  Regenerate
-                  <a href="/modify_question/<%= a_question.id %>" title="Regenerate answer with ChatGPT" class="btn btn-outline-success btn-sm"> <i class="bi bi-arrow-repeat"></i> </a> 
+                  
+                  <a href="/modify_question/<%= a_question.id %>" title="Regenerate answer with ChatGPT" class="btn btn-outline-success btn-sm mb-1"> <i class="bi bi-arrow-repeat"></i> Regenerate</a> 
+
+                  <a class="btn btn-outline-success btn-sm mb-1 copy-button-GPT" title="Copy to clipboard and go to ChatGPT" data-code="<%= a_question.feed %>"> <i class="bi bi-arrow-right"></i> ChatGPT </a>
+                 
+                  <a class="btn btn-outline-primary btn-sm mb-1 copy-button-bing" title="Copy to clipboard and go to Bing" data-code="<%= a_question.feed %>"> <i class="bi bi-arrow-right"></i> Bing </a>
                 </p>
 
               </div>
