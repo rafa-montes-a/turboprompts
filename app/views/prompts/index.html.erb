@@ -49,8 +49,8 @@
           </div>
 
           <div class="col text-truncate">
-            <h5> <a href="/prompts/chat/<%= a_prompt.id %>"> <%= a_prompt.desc %> </a> </h5>
-            <p><small>Created by <%= a_prompt.user.first_name %> <%= a_prompt.user.last_name %> at <%= a_prompt.created_at.strftime(("%B %d, %Y")) %> </small></p>
+            <h5 class="text-truncate"> <a href="/prompts/chat/<%= a_prompt.id %>"> <%= a_prompt.desc %> </a> </h5>
+            <p class="text-truncate"><small>Created by <%= a_prompt.user.first_name %> <%= a_prompt.user.last_name %> at <%= a_prompt.created_at.strftime(("%B %d, %Y")) %> </small></p>
           </div>
 
         </div>
