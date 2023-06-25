@@ -87,31 +87,24 @@
   </div>
 </div>
 
-<% if @the_prompt.questions.where({ :user_id => @current_user.id }).count == 0 %>
-You don't have questions in this template yet.
-<% else %>
-<% end %>
-
-
       <% @the_prompt.questions.where({ :user_id => @current_user.id }).order({ :created_at => :desc }).each do |a_question| %>
 
         <div class="card mb-4" style="width: 90%;">
           <div class="card-body">
             
               <div class="col">
-                <i class="bi bi-chat-dots-fill" style="color: cornflowerblue;"></i> <%= a_question.feed %>
+
+                <i class="bi bi-chat-dots-fill" style="color: cornflowerblue;"></i> <strong> Prompt: </strong> <%= a_question.feed %>
+                <a class="btn btn-outline-secondary btn-sm mb-1 copy-button" title="Copy to clipboard" data-code="<%= a_question.feed %>"> <i class="bi bi-clipboard-check"></i> Copy </a>
+                <a href="/delete_question/<%= a_question.id %>" title="Delete" class="btn btn-outline-danger btn-sm mb-1 cancel-button" onclick="confirmDelete(event, <%= a_question.id %>)"> <i class="bi bi-trash3"></i> </a>
+
                 <br>
+                
                 <small class="text-muted"> <%= time_ago_in_words(a_question.created_at).capitalize %> ago </small>
+                
               </div>
 
-              <div class="col mt-2 mb-1">
-                
-                  <a class="btn btn-outline-secondary btn-sm mb-1 copy-button" title="Copy to clipboard" data-code="<%= a_question.feed %>"> <i class="bi bi-clipboard-check"></i> Copy </a>
-
-                    <a href="/delete_question/<%= a_question.id %>" title="Delete" class="btn btn-outline-danger btn-sm mb-1 cancel-button" onclick="confirmDelete(event, <%= a_question.id %>)"> <i class="bi bi-trash3"></i> </a>
-
-            </div>
-
+              
           </div>
 
           <ul class="list-group list-group-flush">
@@ -142,8 +135,13 @@ You don't have questions in this template yet.
 
       <% end %>
 
+      <p class="text-center"> Other users asked <strong> <%= @the_prompt.questions.count %> </strong> questions using this prompt.</p>
+
+      <% if @the_prompt.questions.where({ :user_id => @current_user.id }).count == 0 %>
+      <p class="text-center"> You haven't asked questions using this template yet.</p>
+      <% else %>
+      <p class="text-center"> You asked <strong> <%= @the_prompt.questions.where({ :user_id => @current_user.id }).count %> </strong> questions using this prompt.</p>
+      <% end %>
+
     </div>
-
-
-
   

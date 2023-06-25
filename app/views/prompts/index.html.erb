@@ -43,15 +43,15 @@
 
       <div class="col">
 
-          <div class="row text-align-center ">
+        <div class="row text-align-center">
 
           <div class="col-auto">
             <img class="thumbnail" src="https://robohash.org/<%= a_prompt.id %>">
           </div>
 
           <div class="col text-truncate">
-            <h5 class="text-truncate"> <a href="/prompts/chat/<%= a_prompt.id %>"> <%= a_prompt.desc %> </a> </h5>
-            <p class="text-truncate"><small>Created by <%= a_prompt.user.first_name %> <%= a_prompt.user.last_name %> at <%= a_prompt.created_at.strftime(("%B %d, %Y")) %> </small></p>
+            <h5 class="text-truncate"> <a href="/prompts/chat/<%= a_prompt.id %>" class="text-decoration-none"> <%= a_prompt.desc %> </a> </h5>
+            <span class="text-truncate"><small>Created by <%= a_prompt.user.first_name %> <%= a_prompt.user.last_name %> at <%= a_prompt.created_at.strftime(("%B %d, %Y")) %> </small></span>
           </div>
 
         </div>
@@ -64,31 +64,27 @@
 
             <div class="row align-items-center">
 
-              <div class="col-auto">
+              <div class="col-md-10">
 
-                <div class="row align-items-center">
-
-                <p class="text-wrap">
+                <div class="row align-items-center">      
 
                   <% a_prompt.sentences.each do |a_sentence| %>
 
                     <% if a_sentence.kind == "Fixed" %>
                   
-                      <div class="col-auto mb-1 text-wrap">
-                        <label for="sentence<%= a_sentence.id %>_box" class="form-label "> <%= a_sentence.content %> </label>
-                        <input id="sentence<%= a_sentence.id %>_box" name="query_sentence<%= a_sentence.id %>" type="hidden" class="form-control form-control-sm text-wrap" value="<%= a_sentence.content %>">
+                      <div class="col-auto mb-1">
+                        <label for="sentence<%= a_sentence.id %>_box" class="form-label text-break"> <%= a_sentence.content %> </label>
+                        <input id="sentence<%= a_sentence.id %>_box" name="query_sentence<%= a_sentence.id %>" type="hidden" class="form-control form-control-sm text-break" value="<%= a_sentence.content %>">
                       </div>
                     
                     <% else %>
 
-                      <div class="col-auto mb-1 text-wrap">
+                      <div class="col-auto mb-1">
                         <input id="sentence<%= a_sentence.id %>_box" name="query_sentence<%= a_sentence.id %>" type="text" class="form-control form-control-sm">
                       </div>
                     <% end %>
 
-                  <% end %>
-
-                  </p>
+                  <% end %>                  
 
                   <input id="prompt_id_box" name="query_prompt_id" type="hidden" value="<%= a_prompt.id %>">
 
