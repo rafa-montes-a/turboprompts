@@ -31,7 +31,7 @@ class QuestionsController < ForceController
 
     end
 
-    gpt_prompt = "Answer the following in no more than 28 seconds: " + the_question.feed.to_s
+    gpt_prompt = "Answer the following in no more than 25 seconds: " + the_question.feed.to_s
 
     message_hash = { :role => "user", :content => gpt_prompt }
     api_messages_array = Array.new
@@ -63,7 +63,7 @@ class QuestionsController < ForceController
     the_id = params.fetch("path_id")
     the_question = Question.where({ :id => the_id }).at(0)
 
-    gpt_prompt = "Answer the following in less than 25 seconds: " + the_question.feed.to_s
+    gpt_prompt = "Answer the following in no more than 25 seconds: " + the_question.feed.to_s
 
     message_hash = { :role => "user", :content => gpt_prompt }
     api_messages_array = Array.new
@@ -75,7 +75,7 @@ class QuestionsController < ForceController
 
     response = client.chat(
         parameters: {
-          model: "gpt-3.5-turbo",
+          model: "gpt-4",
           messages: api_messages_array,
           temperature: 1.0,
         },
