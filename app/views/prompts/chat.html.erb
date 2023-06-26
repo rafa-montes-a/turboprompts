@@ -1,3 +1,5 @@
+<p><small>Only <strong>you</strong> can see what you ask.</small></p>
+
 <div class="card mb-3">
 
   <div class="card-body">
@@ -6,7 +8,7 @@
       
       <div class="col">
         <h5><%= @the_prompt.desc %></h5> 
-        <p><small>Template created by <%= @the_prompt.user.first_name %> <%= @the_prompt.user.last_name %> at <%= @the_prompt.created_at.strftime(("%B %d, %Y")) %> </small></p>
+        <p><small>Created by <%= @the_prompt.user.first_name %> <%= @the_prompt.user.last_name %> at <%= @the_prompt.created_at.strftime(("%B %d, %Y")) %> </small></p>
       </div>
 
       <hr>
@@ -94,7 +96,7 @@
             
               <div class="col">
 
-                <i class="bi bi-chat-dots-fill" style="color: cornflowerblue;"></i> <strong> Prompt: </strong> <%= a_question.feed %>
+                <i class="bi bi-chat-dots-fill" style="color: cornflowerblue;"></i> <strong> <%= @current_user.first_name %>: </strong> <%= a_question.feed %>
                 <a class="btn btn-outline-secondary btn-sm mb-1 copy-button" title="Copy to clipboard" data-code="<%= a_question.feed %>"> <i class="bi bi-clipboard-check"></i> Copy </a>
                 <a href="/delete_question/<%= a_question.id %>" title="Delete" class="btn btn-outline-danger btn-sm mb-1 cancel-button" onclick="confirmDelete(event, <%= a_question.id %>)"> <i class="bi bi-trash3"></i> </a>
 
@@ -113,12 +115,12 @@
               <div class="row align-items-center">
 
                 <p> 
-                  <i class="bi bi-chat-right-text-fill" style="color: green;"></i> <strong> Short answer: </strong> <%= a_question.answer %>
+                  <i class="bi bi-chat-right-text-fill" style="color: green;"></i> <strong> ChatGPT: </strong> <%= a_question.answer %>
 
                   <a href="/modify_question/<%= a_question.id %>" title="Regenerate answer with ChatGPT" class="btn btn-outline-success btn-sm mb-1"> <i class="bi bi-arrow-repeat"></i> Regenerate</a> 
 
                   <br><br>
-                  <strong> For full answers go to: </strong>
+                  <span> For full answers go to: </span>
 
                   <a class="btn btn-outline-success btn-sm mb-1 copy-button-GPT" title="Copy to clipboard and go to ChatGPT" data-code="<%= a_question.feed %>"> <i class="bi bi-arrow-right"></i> ChatGPT </a>
                  
@@ -135,13 +137,14 @@
 
       <% end %>
 
-      <p class="text-center"> Other users asked <strong> <%= @the_prompt.questions.count %> </strong> questions using this prompt.</p>
+      
 
       <% if @the_prompt.questions.where({ :user_id => @current_user.id }).count == 0 %>
-      <p class="text-center"> You haven't asked questions using this template yet.</p>
+      <p class="mb-0"> <small> You haven't asked questions using this template yet.</small></p>
       <% else %>
-      <p class="text-center"> You asked <strong> <%= @the_prompt.questions.where({ :user_id => @current_user.id }).count %> </strong> questions using this prompt.</p>
+      <p class="mb-0"> <small> You have asked <strong> <%= @the_prompt.questions.where({ :user_id => @current_user.id }).count %> </strong> questions using this prompt.</small></p>
       <% end %>
+      <p> <small> Others have asked <strong> <%= @the_prompt.questions.count %> </strong> questions using this prompt.</small></p>
 
     </div>
   

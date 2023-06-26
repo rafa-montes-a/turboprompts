@@ -43,7 +43,7 @@ class QuestionsController < ForceController
 
     response = client.chat(
         parameters: {
-          model: "gpt-4",
+          model: "gpt-3.5-turbo",
           messages: api_messages_array,
           temperature: 1.0,
         },
@@ -75,7 +75,7 @@ class QuestionsController < ForceController
 
     response = client.chat(
         parameters: {
-          model: "gpt-4",
+          model: "gpt-3.5-turbo",
           messages: api_messages_array,
           temperature: 1.0,
         },
