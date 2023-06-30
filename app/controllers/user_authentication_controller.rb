@@ -14,7 +14,7 @@ class UserAuthenticationController < ForceController
   end
 
   def create_cookie
-    user = User.where({ :email => params.fetch("query_email") }).first
+    user = User.where({ :email => params.fetch("query_email").downcase }).first
     
     the_supplied_password = params.fetch("query_password")
     
@@ -45,11 +45,11 @@ class UserAuthenticationController < ForceController
 
   def create
     @user = User.new
-    @user.email = params.fetch("query_email")
+    @user.email = params.fetch("query_email").downcase
     @user.password = params.fetch("query_password")
     @user.password_confirmation = params.fetch("query_password_confirmation")
-    @user.first_name = params.fetch("query_first_name")
-    @user.last_name = params.fetch("query_last_name")
+    @user.first_name = params.fetch("query_first_name").capitalize
+    @user.last_name = params.fetch("query_last_name").capitalize
 
     save_status = @user.save
 
@@ -68,11 +68,11 @@ class UserAuthenticationController < ForceController
 
   def update
     @user = @current_user
-    @user.email = params.fetch("query_email")
+    @user.email = params.fetch("query_email").downcase
     @user.password = params.fetch("query_password")
     @user.password_confirmation = params.fetch("query_password_confirmation")
-    @user.first_name = params.fetch("query_first_name")
-    @user.last_name = params.fetch("query_last_name")
+    @user.first_name = params.fetch("query_first_name").capitalize
+    @user.last_name = params.fetch("query_last_name").capitalize
     
     if @user.valid?
       @user.save
