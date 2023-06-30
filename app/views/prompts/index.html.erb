@@ -1,5 +1,4 @@
 
-
 <div class="row text-align-center mb-3">
 
   <div class="col text-right mb-1">
@@ -53,8 +52,15 @@
           </div>
 
           <div class="col text-truncate">
+            
             <h5 class="text-truncate"> <a href="/prompts/chat/<%= a_prompt.id %>" class="text-decoration-none"> <%= a_prompt.desc %> </a> </h5>
-            <span class="text-truncate"><small>Created by <%= a_prompt.user.first_name %> <%= a_prompt.user.last_name %> at <%= a_prompt.created_at.strftime(("%B %d, %Y")) %> </small></span>
+            
+            <% if a_prompt.user_id == @current_user.id%>
+              <span class="text-truncate"><small>Created by <strong>you</strong> at <%= a_prompt.created_at.strftime(("%B %d, %Y")) %> </small></span>
+            <% else %>
+              <span class="text-truncate"><small>Created by <strong><%= a_prompt.user.first_name %></strong> at <%= a_prompt.created_at.strftime(("%B %d, %Y")) %> </small></span>
+            <% end %>
+
           </div>
 
         </div>

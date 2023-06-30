@@ -6,9 +6,23 @@
 
     <div class="col">
       
-      <div class="col">
-        <h5><%= @the_prompt.desc %></h5> 
-        <p><small>Created by <%= @the_prompt.user.first_name %> <%= @the_prompt.user.last_name %> at <%= @the_prompt.created_at.strftime(("%B %d, %Y")) %> </small></p>
+      <div class="row text-align-center">
+
+        <div class="col-auto">
+          <img class="thumbnail" src="https://robohash.org/<%= @the_prompt.id %>">
+        </div>
+        
+        <div class="col">
+          <h5><%= @the_prompt.desc %></h5>
+
+          <% if @the_prompt.user_id == @current_user.id%>
+            <span class="text-truncate"><small>Created by <strong>you</strong> at <%= @the_prompt.created_at.strftime(("%B %d, %Y")) %> </small></span>
+          <% else %>
+            <span class="text-truncate"><small>Created by <strong><%= @the_prompt.user.first_name %></strong> at <%= @the_prompt.created_at.strftime(("%B %d, %Y")) %> </small></span>
+          <% end %>
+
+        </div>
+      
       </div>
 
       <hr>
