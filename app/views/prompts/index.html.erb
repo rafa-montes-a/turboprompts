@@ -55,11 +55,16 @@
             
             <h5 class="text-truncate"> <a href="/prompts/chat/<%= a_prompt.id %>" class="text-decoration-none"> <%= a_prompt.desc %> </a> </h5>
             
-            <% if a_prompt.user_id == @current_user.id %>
-              <span class="text-truncate"><small>Created by <strong>you</strong> at <%= a_prompt.created_at.strftime(("%B %d, %Y")) %> </small></span>
-            <% else %>
+            <% if @current_user.id == nil %>
               <span class="text-truncate"><small>Created by <strong><%= a_prompt.user.first_name %></strong> at <%= a_prompt.created_at.strftime(("%B %d, %Y")) %> </small></span>
+            <% else %>
+              <% if a_prompt.user_id == @current_user.id %>
+                <span class="text-truncate"><small>Created by <strong>you</strong> at <%= a_prompt.created_at.strftime(("%B %d, %Y")) %> </small></span>
+              <% else %>
+                <span class="text-truncate"><small>Created by <strong><%= a_prompt.user.first_name %></strong> at <%= a_prompt.created_at.strftime(("%B %d, %Y")) %> </small></span>
+              <% end %>
             <% end %>
+            
 
           </div>
 
