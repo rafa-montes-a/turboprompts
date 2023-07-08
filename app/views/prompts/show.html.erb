@@ -31,7 +31,7 @@
 
       <br><br>
 
-          <% @the_prompt.sentences.each do |a_sentence| %>
+          <% @the_prompt.sentences.order({ :created_at => :asc }).each do |a_sentence| %>
 
             <form action="/modify_sentence/<%= a_sentence.id %>" method="post">
             
