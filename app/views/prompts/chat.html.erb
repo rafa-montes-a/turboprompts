@@ -37,7 +37,7 @@
               
               <div class="row align-items-center">
 
-                <% @the_prompt.sentences.each do |a_sentence| %>
+                <% @the_prompt.sentences.order({ :created_at => :asc }).each do |a_sentence| %>
 
                   <% if a_sentence.kind == "Fixed" %>
                 
