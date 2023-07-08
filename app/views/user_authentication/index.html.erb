@@ -4,6 +4,7 @@
     <div class="card-body">
 
     <h5>Admin settings</h5>
+    <p><a href="/questions">Questions</a></p>
 
     <% @list_of_users.each do |a_user| %>
 
@@ -37,14 +38,15 @@
           <%= a_user.likes.count %> likes given
         </div>
 
-        <hr>
-
       </div>
+      <hr>
 
     <% end %>
 
     </div>
   </div>
+
+
 
 
 <% else %>

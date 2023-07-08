@@ -10,130 +10,44 @@
 
   <hr>
 
-  <div>
-    <div>
-      <h2>
-        Add a new question
-      </h2>
+<% @list_of_questions.each do |a_question| %>
+  
+  
+ 
+    <div class="row align-items-center">
+      
+      <div class="col-auto">
+        <%= a_question.id %>
+      </div>
 
-      <form action="/insert_question" method="post">
-        <div>
-          <label for="user_id_box">
-            User
-          </label>
+      <div class="col-md-2 text-truncate">
+        <a href="/prompts/chat/<%= a_question.prompt.id %>" class="text-decoration-none"> <%= a_question.prompt.desc %> </a>
+      </div>
 
-          <input type="text" id="user_id_box" name="query_user_id">
+      <div class="col">
+        <div class="col">
+          <small><%= time_ago_in_words(a_question.created_at).capitalize %> ago </small>
+        </div>
+        
+        <div class="col">
+          <strong> <%= a_question.user.first_name %> <%= a_question.user.last_name %> (<%= a_question.user_id %>)</strong>: <%= a_question.feed %>
         </div>
 
-        <div>
-          <label for="prompt_id_box">
-            Prompt
-          </label>
-
-          <input type="text" id="prompt_id_box" name="query_prompt_id">
+        <div class="col">
+          <strong> ChatGPT </strong>: <%= a_question.answer %>
         </div>
 
-        <div>
-          <label for="answer_box">
-            Answer
-          </label>
+      </div>
 
-          <textarea id="answer_box" name="query_answer" rows="3"></textarea>
-        </div>
-
-        <div>
-          <label for="feed_box">
-            Feed
-          </label>
-
-          <textarea id="feed_box" name="query_feed" rows="3"></textarea>
-        </div>
-
-        <button>
-          Create question
-        </button>
-      </form>
     </div>
-  </div>
+
 
   <hr>
-  <div>
-    <div>
-      <table border="1">
-        <tr>
-          <th>
-            ID
-          </th>
 
-          <th>
-            User
-          </th>
+ 
+<% end %>
 
-          <th>
-            Prompt
-          </th>
 
-          <th>
-            Answer
-          </th>
-
-          <th>
-            Feed
-          </th>
-
-          <th>
-            Created at
-          </th>
-
-          <th>
-            Updated at
-          </th>
-
-          <th>
-          </th>
-        </tr>
-
-        <% @list_of_questions.each do |a_question| %>
-        <tr>
-          <td>
-            <%= a_question.id %>
-          </td>
-
-          <td>
-            <%= a_question.user_id %>
-          </td>
-
-          <td>
-            <%= a_question.prompt_id %>
-          </td>
-
-          <td>
-            <%= a_question.answer %>
-          </td>
-
-          <td>
-            <%= a_question.feed %>
-          </td>
-
-          <td>
-            <%= time_ago_in_words(a_question.created_at) %> ago
-          </td>
-          <td>
-            <%= time_ago_in_words(a_question.updated_at) %> ago
-          </td>
-
-          <td>
-            <a href="/questions/<%= a_question.id %>">
-              Show details
-            </a>
-          </td>
-        </tr>
-        <% end %>
-      </table>
-    </div>
-  </div>
-
-  <hr>
 
 <% else %>
 
