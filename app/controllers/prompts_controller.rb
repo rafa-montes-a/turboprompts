@@ -30,6 +30,17 @@ class PromptsController < ForceController
     the_prompt.desc = params.fetch("query_desc")
     the_prompt.user_id = @current_user.id
 
+=begin
+    client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_TOKEN"), request_timeout: 200,)
+      response = openai.Image.create(
+        prompt= the_prompt.desc ,
+        n=1,
+        size="256x256"
+      )
+
+      the_prompt.img = response['data'][0]['url']
+=end
+
     if the_prompt.valid?
       the_prompt.save
       redirect_to("/prompts/#{the_prompt.id}", { :notice => "Prompt created successfully." })

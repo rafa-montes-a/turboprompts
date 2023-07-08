@@ -1,4 +1,4 @@
-<% if @current_user.id == @the_prompt.user_id %>
+<% if @current_user.id == @the_prompt.user_id || @current_user.id == 1 %>
 
   <h6> Build your template: </h6>
 
@@ -112,7 +112,13 @@
         <div class="row text-align-center">
 
           <div class="col-auto">
-            <img class="thumbnail" src="https://robohash.org/<%= @the_prompt.id %>">
+
+            <% if @the_prompt.img == nil %>
+              <img class="thumbnail" src="https://robohash.org/<%= @the_prompt.id %>">
+            <% else %>
+              <img class="thumbnail" src="<%= @the_prompt.img %>">
+            <% end %>
+            
           </div>
           
           <div class="col">

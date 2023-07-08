@@ -3,7 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.3'
 
-gem 'ruby-openai'
+gem 'ruby-openai', "~> 4.0.0"
+gem "sidekiq", "~> 7.0.9"
 
 gem 'bcrypt'
 gem 'bootsnap', '>= 1.4.2', require: false
