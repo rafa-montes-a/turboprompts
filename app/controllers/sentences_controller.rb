@@ -33,7 +33,7 @@ class SentencesController < ForceController
 
   def update
     the_id = params.fetch("path_id")
-    the_sentence = Sentence.where({ :id => the_id }).at(0)
+    the_sentence = Sentence.where({ :id => the_id }).order({ :created_at => :asc }).at(0)
 
     the_sentence.content = params.fetch("query_content")
     the_sentence.kind = params.fetch("query_kind")
